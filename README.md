@@ -1,6 +1,6 @@
 # AgentMail Usage Demo
 
-A usage-based product creates natural expansion signals. When an account gets close to its inbox or email limit, AgentMail has a chance to step in before the customer hits a wall, upgrades without assistance, or churns out of frustration.
+AgentMail charges by usage. When an account hits its inbox or email limit, it can't send more until it upgrades. This project tracks that moment and ranks accounts by how close they are to it. When an account gets close to its inbox or email limit, AgentMail has a chance to step in before the customer hits a wall, upgrades without assistance, or churns out of frustration.
 
 This project turns AgentMail usage data into a ranked list of accounts that may need attention.
 
