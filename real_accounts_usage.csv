@@ -1,0 +1,4 @@
+pod_id,pod_name,inbox_count,messages_sent,messages_received,thread_count,data_source
+64547b84-3857-41df-843c-289388a5aa83,Acme Corp,1,110,10,102,real
+3693fc92-1459-49ec-96c7-27e203eb3cd3,Bright Labs,1,7,7,14,real
+7975107e-728e-46c7-baf7-1def13a9d796,Cold Startup,1,3,3,6,real

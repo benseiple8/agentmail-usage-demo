@@ -1,0 +1,16 @@
+pod_id,pod_name,tier,inbox_count,messages_sent,messages_received,thread_count,data_source
+sim-001,Fetchly AI,Free,3,1450,1400,620,simulated
+sim-002,Parsely Labs,Free,2,1100,1100,540,simulated
+sim-003,Dockwise,Free,2,610,590,310,simulated
+sim-004,Nimbic Legal,Free,1,210,190,95,simulated
+sim-005,RoadSync Dealers,Free,3,260,240,140,simulated
+sim-006,Verdict AI,Free,1,28,22,18,simulated
+sim-007,Agentix,Developer,9,4500,4300,1950,simulated
+sim-008,Wrapley,Developer,10,4900,4700,2100,simulated
+sim-009,CaseFlow Legal,Developer,6,2650,2550,1300,simulated
+sim-010,DealerPing,Developer,7,3100,3000,1450,simulated
+sim-011,SupportLoop,Developer,4,1320,1280,780,simulated
+sim-012,TortAI,Developer,8,3750,3650,1600,simulated
+sim-013,AutoScribe,Developer,5,1680,1620,900,simulated
+sim-014,Compozr,Startup,45,26500,25500,11200,simulated
+sim-015,LegalMesh,Startup,112,49500,48500,21000,simulated

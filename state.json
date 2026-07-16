@@ -1,0 +1,22 @@
+{
+  "pods": [
+    {
+      "pod_id": "64547b84-3857-41df-843c-289388a5aa83",
+      "pod_name": "Acme Corp",
+      "inbox_id": "busysister710@agentmail.to",
+      "email": "busysister710@agentmail.to"
+    },
+    {
+      "pod_id": "3693fc92-1459-49ec-96c7-27e203eb3cd3",
+      "pod_name": "Bright Labs",
+      "inbox_id": "finebutter677@agentmail.to",
+      "email": "finebutter677@agentmail.to"
+    },
+    {
+      "pod_id": "7975107e-728e-46c7-baf7-1def13a9d796",
+      "pod_name": "Cold Startup",
+      "inbox_id": "youthfulequipment152@agentmail.to",
+      "email": "youthfulequipment152@agentmail.to"
+    }
+  ]
+}
