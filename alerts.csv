@@ -1,19 +1,19 @@
-pod_id,pod_name,tier,inbox_usage_pct,inbox_at_cap,email_usage_pct,alert_level,suggested_next_tier,suggested_action,data_source
-sim-008,Wrapley,Developer,100.0,True,96.0,at_cap,Startup,At or over the Developer tier inbox count and email volume limit; upgrade to Startup now to avoid service interruption.,simulated
-sim-001,Fetchly AI,Free,100.0,True,95.0,at_cap,Developer,At or over the Free tier inbox count and email volume limit; upgrade to Developer now to avoid service interruption.,simulated
-sim-005,RoadSync Dealers,Free,100.0,True,16.7,at_cap,Developer,At or over the Free tier inbox count limit; upgrade to Developer now to avoid service interruption.,simulated
-sim-007,Agentix,Developer,90.0,False,88.0,approaching,Startup,Approaching the Developer tier email volume limit; consider upgrading to Startup soon.,simulated
-sim-012,TortAI,Developer,80.0,False,74.0,approaching,Startup,Approaching the Developer tier email volume limit; consider upgrading to Startup soon.,simulated
-sim-002,Parsely Labs,Free,66.7,False,73.3,approaching,Developer,Approaching the Free tier email volume limit; consider upgrading to Developer soon.,simulated
-sim-015,LegalMesh,Startup,74.7,False,65.3,none,Startup,Comfortably within Startup tier limits; no action needed.,simulated
-sim-010,DealerPing,Developer,70.0,False,61.0,none,Developer,Comfortably within Developer tier limits; no action needed.,simulated
-sim-009,CaseFlow Legal,Developer,60.0,False,52.0,none,Developer,Comfortably within Developer tier limits; no action needed.,simulated
-sim-003,Dockwise,Free,66.7,False,40.0,none,Free,Comfortably within Free tier limits; no action needed.,simulated
-sim-014,Compozr,Startup,30.0,False,34.7,none,Startup,Comfortably within Startup tier limits; no action needed.,simulated
-sim-013,AutoScribe,Developer,50.0,False,33.0,none,Developer,Comfortably within Developer tier limits; no action needed.,simulated
-sim-011,SupportLoop,Developer,40.0,False,26.0,none,Developer,Comfortably within Developer tier limits; no action needed.,simulated
-sim-004,Nimbic Legal,Free,33.3,False,13.3,none,Free,Comfortably within Free tier limits; no action needed.,simulated
-64547b84-3857-41df-843c-289388a5aa83,Acme Corp,Free,33.3,False,4.0,none,Free,Comfortably within Free tier limits; no action needed.,real
-sim-006,Verdict AI,Free,33.3,False,1.7,none,Free,Comfortably within Free tier limits; no action needed.,simulated
-3693fc92-1459-49ec-96c7-27e203eb3cd3,Bright Labs,Free,33.3,False,0.5,none,Free,Comfortably within Free tier limits; no action needed.,real
-7975107e-728e-46c7-baf7-1def13a9d796,Cold Startup,Free,33.3,False,0.2,none,Free,Comfortably within Free tier limits; no action needed.,real
+pod_id,pod_name,tier,inbox_usage_pct,inbox_at_cap,email_usage_pct,daily_sent,daily_usage_pct,daily_alert_level,alert_level,suggested_next_tier,suggested_action,data_source
+64547b84-3857-41df-843c-289388a5aa83,Acme Corp,Free,33.3,False,4.0,100,100.0,at_cap,at_cap,Developer,"At or over the Free tier daily email volume limit (100 of 100 daily emails sent, monthly usage is still low at 120 of 3000 -- daily limit is the real constraint here); upgrade to Developer now to avoid service interruption.",real
+sim-008,Wrapley,Developer,100.0,True,96.0,163,,n/a,at_cap,Startup,At or over the Developer tier inbox count and monthly email volume limit; upgrade to Startup now to avoid service interruption.,simulated
+sim-001,Fetchly AI,Free,100.0,True,95.0,45,45.0,none,at_cap,Developer,"At or over the Free tier inbox count and monthly email volume limit (45 of 100 daily emails sent, but 2850 of 3000 for the month -- monthly limit is the real constraint here); upgrade to Developer now to avoid service interruption.",simulated
+sim-005,RoadSync Dealers,Free,100.0,True,16.7,20,20.0,none,at_cap,Developer,"At or over the Free tier inbox count limit (20 of 100 daily emails sent, but 500 of 3000 for the month -- monthly limit is the real constraint here); upgrade to Developer now to avoid service interruption.",simulated
+sim-003,Dockwise,Free,66.7,False,40.0,98,98.0,approaching,approaching,Developer,"Approaching the Free tier daily email volume limit (98 of 100 daily emails sent, monthly usage is still low at 1200 of 3000 -- daily limit is the real constraint here); consider upgrading to Developer soon.",simulated
+sim-007,Agentix,Developer,90.0,False,88.0,150,,n/a,approaching,Startup,Approaching the Developer tier monthly email volume limit; consider upgrading to Startup soon.,simulated
+sim-012,TortAI,Developer,80.0,False,74.0,125,,n/a,approaching,Startup,Approaching the Developer tier monthly email volume limit; consider upgrading to Startup soon.,simulated
+sim-002,Parsely Labs,Free,66.7,False,73.3,48,48.0,none,approaching,Developer,"Approaching the Free tier monthly email volume limit (48 of 100 daily emails sent, but 2200 of 3000 for the month -- monthly limit is the real constraint here); consider upgrading to Developer soon.",simulated
+sim-015,LegalMesh,Startup,74.7,False,65.3,1650,,n/a,none,Startup,Comfortably within Startup tier limits; no action needed.,simulated
+sim-010,DealerPing,Developer,70.0,False,61.0,103,,n/a,none,Developer,Comfortably within Developer tier limits; no action needed.,simulated
+sim-009,CaseFlow Legal,Developer,60.0,False,52.0,88,,n/a,none,Developer,Comfortably within Developer tier limits; no action needed.,simulated
+sim-014,Compozr,Startup,30.0,False,34.7,883,,n/a,none,Startup,Comfortably within Startup tier limits; no action needed.,simulated
+sim-013,AutoScribe,Developer,50.0,False,33.0,56,,n/a,none,Developer,Comfortably within Developer tier limits; no action needed.,simulated
+sim-011,SupportLoop,Developer,40.0,False,26.0,44,,n/a,none,Developer,Comfortably within Developer tier limits; no action needed.,simulated
+sim-004,Nimbic Legal,Free,33.3,False,13.3,15,15.0,none,none,Free,Comfortably within Free tier limits; no action needed.,simulated
+sim-006,Verdict AI,Free,33.3,False,1.7,3,3.0,none,none,Free,Comfortably within Free tier limits; no action needed.,simulated
+3693fc92-1459-49ec-96c7-27e203eb3cd3,Bright Labs,Free,33.3,False,0.5,0,0.0,none,none,Free,Comfortably within Free tier limits; no action needed.,real
+7975107e-728e-46c7-baf7-1def13a9d796,Cold Startup,Free,33.3,False,0.2,0,0.0,none,none,Free,Comfortably within Free tier limits; no action needed.,real

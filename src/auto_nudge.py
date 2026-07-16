@@ -15,6 +15,11 @@ Startup), since they're the only ones with a real inbox to receive it. The
 15 simulated accounts never receive anything. If no real account currently
 qualifies, their nudge emails print as a labeled preview instead.
 
+The email names whichever of monthly or daily volume is actually driving
+the alert (Free tier only has a daily cap), instead of always citing
+monthly numbers that may look fine for an account that's only at_cap on
+the daily dimension.
+
 Demo limitation, not a design choice: real sends use one of the 3 mock
 customer inboxes (e.g. Acme Corp) as the "From" address, signing off as
 "AgentMail Growth." A real system would send from AgentMail's own domain,
@@ -26,7 +31,7 @@ from pathlib import Path
 
 from client import post
 from send_emails import current_message_count, SAFETY_CAP
-from tier_alerts import TIERS, next_tier
+from tier_alerts import TIERS, next_tier, EMAIL_APPROACHING_PCT
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PRIORITY_CSV = PROJECT_ROOT / "priority_accounts.csv"
@@ -73,15 +78,41 @@ def compose_email(account, usage_row):
     upgrade = next_tier(tier)
     upgrade_caps = TIERS[upgrade]
 
+    inbox_at_cap = inbox_count >= caps["inbox_limit"]
+    email_pct = emails_used / caps["email_limit"] * 100
+    monthly_elevated = inbox_at_cap or email_pct >= EMAIL_APPROACHING_PCT
+
+    daily_limit = caps.get("daily_send_limit")
+    daily_alert_level = account.get("daily_alert_level", "n/a")
+    daily_elevated = daily_alert_level in ("approaching", "at_cap")
+    daily_sent = int(account.get("daily_sent") or usage_row.get("daily_sent") or 0)
+
+    usage_line = (
+        f"you've used {inbox_count} of {caps['inbox_limit']} inboxes and sent "
+        f"{emails_used} of {caps['email_limit']} emails this month on the {tier} plan"
+    )
+    if daily_limit is not None:
+        if daily_elevated and not monthly_elevated:
+            usage_line = (
+                f"you've sent {daily_sent} of the {daily_limit} emails your {tier} plan "
+                f"allows per day. Monthly usage is still low ({emails_used} of "
+                f"{caps['email_limit']}) — it's today's daily limit that's blocking you, "
+                f"not the month"
+            )
+        elif daily_elevated and monthly_elevated:
+            usage_line += f", and you've also sent {daily_sent} of {daily_limit} allowed today"
+        elif monthly_elevated:
+            usage_line += f" ({daily_sent} of {daily_limit} sent today, which is fine)"
+
+    daily_removed_note = ", with no daily send limit" if daily_limit is not None else ""
+
     subject = f"You've hit the {tier} tier limit on AgentMail"
     text = (
         f"Hi {account['pod_name']} team,\n\n"
-        f"Your AgentMail account just hit its {tier} tier limit — you've used "
-        f"{inbox_count} of {caps['inbox_limit']} inboxes and sent {emails_used} of "
-        f"{caps['email_limit']} emails this month on the {tier} plan.\n\n"
+        f"Your AgentMail account just hit its {tier} tier limit — {usage_line}.\n\n"
         f"The {upgrade} tier gives you {upgrade_caps['inbox_limit']} inboxes and "
-        f"{upgrade_caps['email_limit']:,} emails/month — upgrading unblocks you "
-        f"right away and only takes a couple of minutes.\n\n"
+        f"{upgrade_caps['email_limit']:,} emails/month{daily_removed_note} — upgrading "
+        f"unblocks you right away and only takes a couple of minutes.\n\n"
         f"— {SENDER_DISPLAY_NAME}"
     )
     return subject, text

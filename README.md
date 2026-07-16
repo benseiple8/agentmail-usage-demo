@@ -11,9 +11,11 @@ should look at each one.
 ## The result
 
 Across 18 accounts (3 real, pulled live from AgentMail; 15 simulated), the pipeline
-currently flags 3 as `at_cap`, 3 as `approaching` a cap, and 12 as fine. The top 3 by
-priority score are Fetchly AI, RoadSync Dealers, and Wrapley, all at their tier's inbox
-limit right now. Run the pipeline yourself and these numbers regenerate live.
+currently flags 4 as `at_cap`, 4 as `approaching` a cap, and 10 as fine. The top 3 by
+priority score are Acme Corp, Fetchly AI, and RoadSync Dealers, tied at the top. Acme
+Corp is real: it's fine on the monthly view (4% of the 3,000/month cap) but sent
+exactly 100 of its 100/day limit today, so the daily dimension alone puts it at
+`at_cap`. Run the pipeline yourself and these numbers regenerate live.
 
 ## Run it yourself
 
@@ -67,8 +69,9 @@ Every script's header states which kind of data it touches.
 5. **`tier_alerts.py`** compares each account's usage to AgentMail's published tier
    caps, as if each pod were its own independent customer account. Inbox count gets a
    binary at-cap flag, since it's a one-time provisioning choice with no trend to read.
-   Email volume gets graduated 70%/100% thresholds, since it's a running total that can
-   actually trend toward a cap.
+   Monthly email volume and daily send volume (Free tier only, 100/day) each get their
+   own graduated 70%/100% thresholds and are scored independently, since an account can
+   be fine on one and at_cap on the other; the overall alert is whichever is worse.
 6. **`icp_scoring.py`** scores every account against 2 customer-fit segments using 3
    stated criteria each, computed directly from usage numbers.
 7. **`combine.py`** merges the alert and fit data into one ranked list: an account
@@ -104,9 +107,10 @@ agentmail-usage-demo/
 
 ## What I'd build next
 
-- **Trend-based email alerts.** Right now email usage is a single snapshot percentage.
-  A real version would look at day-over-day rate and flag an account projected to hit
-  its cap in 3 days, not just one already past 70%.
+- **Trend-based email alerts.** Right now monthly and daily email usage are each a
+  snapshot percentage at the moment the pipeline runs. A real version would look at
+  day-over-day rate and flag an account projected to hit its cap in 3 days, not just
+  one already past 70% today.
 - **A calibrated ICP model.** The current scoring criteria are simple heuristics I could
   state and defend in one sentence each. A real version would train against actual
   AgentMail conversion or expansion data, if I had access to it.
@@ -124,11 +128,12 @@ agentmail-usage-demo/
 pricing and rate-limits pages (the Developer tier removes this cap). Pushing Acme
 Corp toward the 3,000/month Free-tier ceiling meant sending far more than 100 messages
 in one run, and I ran into that daily cap directly: an account-wide lockout across all
-3 real inboxes at once, not a gradual throttle. Real Acme Corp usage is at 120 messages
-(4% of the Free-tier cap) rather than the ~90-95% this demo aims to show for a real
-`at_cap` example, because reaching that target within the daily cap would take dozens
-of days, not one. The 3 `at_cap` accounts in the current run are all simulated, not
-real.
+3 real inboxes at once, not a gradual throttle. The pipeline now tracks this daily cap
+explicitly (see "How it works" step 5), confirmed against the Metrics API's daily
+bucketing. The result: Acme Corp sent exactly 100 messages today, so it's a real
+`at_cap` example on the daily dimension, even though its monthly usage (120 of 3,000,
+4%) is still low. Reaching the original ~90-95% monthly target would still take dozens
+of days of sending at the daily cap, not one.
 
 **The thread-count fix is implemented but not re-verified against the live API.**
 `send_emails.py` sends follow-up messages via AgentMail's reply endpoint so real
